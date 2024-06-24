@@ -112,19 +112,76 @@ LEFT JOIN atribuicoes ON funcionarios.id = atribuicoes.id_funcionario
 WHERE atribuicoes.id_funcionario IS NULL;
 
 
-
-
-
 /* Avançado */
 /* Selecione os funcionários que estão atribuídos a mais de um projeto. */
+SELECT funcionarios.nome, COUNT(atribuicoes.id_projeto) AS NumProjetos
+FROM funcionarios
+JOIN atribuicoes ON funcionarios.id = atribuicoes.id_funcionarios
+GROUP BY funcionarios.id
+HAVING COUNT(atribuicoes.id_projeto) > 1;
+
+
+
+
 /* Liste os projetos com a média de idade dos funcionários atribuídos. */
+SELECT projetos.nome AS NomeProjeto, AVG(funcionarios.idade) AS MediaIdade
+FROM projetos
+JOIN atribuicoes ON projetos.id = atribuicoes.id_projeto
+JOIN funcionarios ON atribuicoes.id_funcionario = funcionarios.id
+GROUP BY projetos.id;
+
+
 /* Selecione os funcionários que são gerentes de projeto. */
+SELECT funcionarios.nome
+FROM funcionarios
+JOIN atribuicoes ON funcionarios.id = atribuicoes.id_funcionario
+WHERE atribuicoes.papel = 'Gerente de Projeto';
+
 /* Liste os projetos com a maior e a menor data de término. */
+SELECT MAX(data_fim) AS MaiorDataFim, MIN(data_fim) AS MenorDataFim
+FROM projetos;
+
+
 /* Selecione os funcionários que têm o mesmo salário. */
+SELECT f1.nome, f1.salario
+FROM funcionarios f1
+JOIN funcionarios f2 on f1.salario = f2.salario and f1.id <> f2.id;
+
+
 /* Liste os projetos que têm funcionários com idade média superior a 30 anos. */
+SELECT projetos.nome
+FROM projetos
+JOIN atribuicoes ON projetos.id = atribuicoes.id_projeto
+JOIN funcionarios ON atribuicoes.id_funcionario = funcionarios.id
+GROUP BY projetos.id
+HAVING AVG(funcionarios.idade) > 30;
+
+
 /* Selecione os funcionários que têm o maior salário em cada cargo. */
+SELECT nome, cargo, salario
+FROM funcionarios f1
+WHERE salario = (select max(salario) from funcionarios f2 WHERE f1.cargo = f2.cargo);
+
 /* Liste os projetos com a maior diferença de dias entre data_inicio e data_fim. */
+SELECT nome, datediff(data_fim, data_inicio) as DiferencaDias
+FROM projetos
+ORDER BY DiferencaDias desc
+limit 1;
+
+
 /* Selecione os funcionários que têm sido atribuídos a projetos por mais de um ano. */
+SELECT DISTINCT funcionarios.nome
+FROM funcionarios
+JOIN atribuicoes ON funcionarios.id = atribuicoes.id_funcionario
+JOIN projetos ON atribuicoes.id_projeto = projetos.id
+WHERE DATEDIFF(projetos.data_fim, projetos.data_inicio) > 365;
+
+
 /* Liste os projetos e os funcionários que têm o papel de 'Analista' em cada projeto. */
+SELECT projetos.nome AS NomeProjeto, funcionarios.nome AS NomeFuncionario
+FROM projetos
+JOIN atribuicoes ON projetos.id = atribuicoes.id_projeto
+JOIN funcionarios ON atribuicoes.id_funcionario = funcionarios.id
+WHERE atribuicoes.papel = 'Analista';
 
 
