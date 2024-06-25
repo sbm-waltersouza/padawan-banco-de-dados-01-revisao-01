@@ -46,3 +46,32 @@ VALUES
     (1, 1, 'Programador'),
     (2, 1, 'Analista de Dados'),
     (3, 2, 'Gerente de Projeto');
+    
+    -- Inserir mais dados na tabela funcionarios
+INSERT INTO funcionarios (nome, idade, cargo, salario)
+VALUES 
+    ('Ana', 28, 'Desenvolvedora', 4800.00),
+    ('Luiz', 40, 'Arquiteto de Sistemas', 8000.00),
+    ('Beatriz', 32, 'Designer UX/UI', 4700.00),
+    ('Paulo', 29, 'DevOps', 5500.00),
+    ('Fernanda', 45, 'Diretora de TI', 10000.00);
+ 
+-- Inserir mais dados na tabela projetos
+INSERT INTO projetos (nome, descricao, data_inicio, data_fim)
+VALUES 
+    ('Projeto C', 'Melhoria na infraestrutura de rede', '2023-05-01', '2023-12-31'),
+    ('Projeto D', 'Desenvolvimento de um aplicativo mobile', '2023-07-01', '2023-12-31'),
+    ('Projeto E', 'Reestruturação do website corporativo', '2023-02-01', '2023-08-31'),
+    ('Projeto F', 'Migração para a nuvem', '2023-04-01', '2023-10-31');
+ 
+-- Inserir mais dados na tabela atribuicoes
+INSERT INTO atribuicoes (id_funcionario, id_projeto, papel)
+VALUES
+    (4, 3, 'Desenvolvedora'),
+    (5, 3, 'Arquiteto de Sistemas'),
+    (1, 4, 'Programador'),
+    (3, 4, 'Gerente de Projeto'),
+    (2, 5, 'Analista de Dados'),
+    (6, 5, 'Designer UX/UI'),
+    (3, 6, 'Gerente de Projeto'),
+    (4, 6, 'DevOps');
